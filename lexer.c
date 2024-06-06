@@ -46,6 +46,10 @@ bool _can_be_in_id(char c) {
 	return isalnum(c) || c == '_';
 }
 
+bool _can_be_in_int(char c) {
+	return isdigit(c);
+}
+
 Token _lexer_internal_next(Lexer* lex) {
 	Reader* reader = lex->reader;
 
@@ -76,6 +80,13 @@ start:
 		} else {
 			tok.type = Id;
 		}
+		return tok;
+	}
+
+	// Integer Literals
+	if (_can_be_in_int(c)) {
+		char* literalString = _reader_read_while_condition_or_until_eof(reader, c, _can_be_in_int);
+		Token tok = { .type = Int, .lexeme = literalString };
 		return tok;
 	}
 
