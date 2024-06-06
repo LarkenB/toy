@@ -38,24 +38,12 @@ char* _reader_read_while_condition_or_until_eof(Reader* reader, char first, _Pre
 	return buf;
 }
 
-bool _is_whitespace(char c) {
-	switch (c) {
-		case ' ':
-		case '\n':
-		case '\t':
-		case '\r':
-			return true;
-		default:
-			return false;
-	}
-}
-
 bool _can_start_id(char c) {
 	return isalpha(c) || c == '_';
 }
 
 bool _can_be_in_id(char c) {
-	return isalpha(c) || isdigit(c) || c == '_';
+	return isalnum(c) || c == '_';
 }
 
 Token _lexer_internal_next(Lexer* lex) {
@@ -68,8 +56,7 @@ start:
 	}
 
 	// Skip whitespace
-	// _reader_read_while_condition_or_until_eof(reader, '', _is_whitespace);
-	while (_is_whitespace(reader_peek(reader)) && !reader->eof) {
+	while (isspace(reader_peek(reader)) && !reader->eof) {
 		reader_next(reader);
 	}
 
@@ -82,14 +69,14 @@ start:
 
 	// Identifier and Keywords
 	if (_can_start_id(c)) {
-				char* identifier = _reader_read_while_condition_or_until_eof(reader, c, _can_be_in_id);
-				Token tok = { .lexeme = identifier };
-				if (strcmp(identifier, "func")) {
-					tok.type = Func;
-				} else {
-					tok.type = Id;
-				}
-				return tok;
+		char* identifier = _reader_read_while_condition_or_until_eof(reader, c, _can_be_in_id);
+		Token tok = { .lexeme = identifier };
+		if (strcmp(identifier, "func")) {
+			tok.type = Func;
+		} else {
+			tok.type = Id;
+		}
+		return tok;
 	}
 
 	// TODO: proper error handling or convert to assert
