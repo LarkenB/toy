@@ -15,7 +15,8 @@ typedef enum {
 	LParen,
 	RParen,
 	LBrace,
-	RBrace
+	RBrace,
+	Semi
 } TokenType;
 
 typedef struct {

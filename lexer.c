@@ -108,6 +108,10 @@ start:
 			Token tok = { .type = LBrace, .lexeme = "}" };
 			return tok;
 		}
+		case ';': {
+			Token tok = { .type = Semi, .lexeme = ";" };
+			return tok;
+		}
 	}
 
 	// TODO: proper error handling or convert to assert
