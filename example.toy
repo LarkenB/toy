@@ -1,6 +1,3 @@
-    hell2o world a adf 
-	_dad2_adada a 
-	200 201 4 3000
-		b
-
-	c	
+func main() {
+	ret 200
+}

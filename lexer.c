@@ -90,6 +90,26 @@ start:
 		return tok;
 	}
 
+	// Special Chars
+	switch (c) {
+		case '(': {
+			Token tok = { .type = LParen, .lexeme = "(" };
+			return tok;
+		}
+		case ')': {
+			Token tok = { .type = LParen, .lexeme = ")" };
+			return tok;
+		}
+		case '{': {
+			Token tok = { .type = LBrace, .lexeme = "{" };
+			return tok;
+		}
+		case '}': {
+			Token tok = { .type = LBrace, .lexeme = "}" };
+			return tok;
+		}
+	}
+
 	// TODO: proper error handling or convert to assert
 	Token tok = { .type = Error, .lexeme = "error: invalid char in lexer" };
 	return tok;

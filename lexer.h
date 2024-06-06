@@ -7,11 +7,15 @@ typedef struct {
 } Lexer;
 
 typedef enum {
+	Error,
 	Id,
 	Int,
 	Eof,
 	Func,
-	Error
+	LParen,
+	RParen,
+	LBrace,
+	RBrace
 } TokenType;
 
 typedef struct {
