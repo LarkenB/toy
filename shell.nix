@@ -12,6 +12,8 @@ let
       colorscheme molokai
       set tabstop=2
       set shiftwidth=2
+
+			tnoremap <ESC>  <C-\><C-n>
     '';
     
     packages.myPackages = with pkgs.vimPlugins; {
