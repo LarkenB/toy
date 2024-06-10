@@ -35,6 +35,7 @@ pkgs.mkShell {
     (pkgs.neovim.override {
       configure = vimrcConfig; 
     })
+		pkgs.bat
   ];
   shellHook = ''
     echo "Entered Dev Kit"
