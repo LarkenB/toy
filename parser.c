@@ -41,6 +41,16 @@ FunctionAst parser_parse_function(Parser* par) {
 			exit(1);
 	}
 
+	if (lexer_peek(lex).type == Arrow) {
+		// TODO: split into a parser_parse_type() function
+		lexer_next(lex); // Eat "->"
+		Token typeName;
+		if (!lexer_expect(lex, Id, &typeName)) {
+			printf("error: expected return type after \"->\"\n");
+			exit(1);
+		}
+	}
+
 	if (!lexer_expect(lex, LBrace, NULL)) {
 			printf("error: expected \"{\" at the start of function body\n");
 			exit(1);

@@ -12,7 +12,9 @@ typedef enum {
 	RParen,
 	LBrace,
 	RBrace,
-	Semi
+	Semi,
+	Arrow,
+	Minus
 } TokenType;
 
 typedef struct {

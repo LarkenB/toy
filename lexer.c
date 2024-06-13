@@ -75,8 +75,6 @@ start:
 	if (_can_start_id(c)) {
 		char* identifier = _reader_read_while_condition_or_until_eof(reader, c, _can_be_in_id);
 		Token tok = { .lexeme = identifier };
-//		Token tok;
-	//	tok.lexeme = identifier;
 		if (strcmp(identifier, "func") == 0) {
 			tok.type = Func;
 		} else {
@@ -112,6 +110,18 @@ start:
 		}
 		case ';': {
 			Token tok = { .type = Semi, .lexeme = ";" };
+			return tok;
+		}
+	}
+	
+	switch (c) {
+		case '-': {
+			if (reader_peek(reader) == '>') {
+				reader_next(reader);
+				Token tok = { .type = Arrow, .lexeme = "->" };
+				return tok;
+			}
+			Token tok = { .type = Minus, .lexeme = "-" };
 			return tok;
 		}
 	}
