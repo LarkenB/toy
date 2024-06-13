@@ -2,10 +2,6 @@
 #include <stdbool.h>
 #include "reader.h"
 
-typedef struct {
-	Reader* reader;
-} Lexer;
-
 typedef enum {
 	Error,
 	Id,
@@ -24,6 +20,15 @@ typedef struct {
 	char* lexeme;
 } Token;
 
+typedef struct {
+	Reader* reader;
+	Token* _peeked;
+} Lexer;
+
+void lexer_init(Lexer* lex, Reader* reader);
+
 Token lexer_next(Lexer* lex);
+
+Token lexer_peek(Lexer* lex);
 
 bool lexer_expect(Lexer* lex, TokenType type, Token* tok);

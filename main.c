@@ -8,7 +8,8 @@ int main() {
 	FILE* file = fopen("example.toy", "r");
 
 	Reader reader = { .file = file };
-	Lexer lex = { .reader = &reader };
+	Lexer lex;
+	lexer_init(&lex, &reader);
 	Parser par = { .lex = &lex };
 
 	parser_parse_program(&par);

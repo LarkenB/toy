@@ -75,7 +75,9 @@ start:
 	if (_can_start_id(c)) {
 		char* identifier = _reader_read_while_condition_or_until_eof(reader, c, _can_be_in_id);
 		Token tok = { .lexeme = identifier };
-		if (strcmp(identifier, "func")) {
+//		Token tok;
+	//	tok.lexeme = identifier;
+		if (strcmp(identifier, "func") == 0) {
 			tok.type = Func;
 		} else {
 			tok.type = Id;
@@ -97,7 +99,7 @@ start:
 			return tok;
 		}
 		case ')': {
-			Token tok = { .type = LParen, .lexeme = ")" };
+			Token tok = { .type = RParen, .lexeme = ")" };
 			return tok;
 		}
 		case '{': {
@@ -105,7 +107,7 @@ start:
 			return tok;
 		}
 		case '}': {
-			Token tok = { .type = LBrace, .lexeme = "}" };
+			Token tok = { .type = RBrace, .lexeme = "}" };
 			return tok;
 		}
 		case ';': {
@@ -119,16 +121,35 @@ start:
 	return tok;
 }
 
+void lexer_init(Lexer* lex, Reader* reader) {
+	lex->reader = reader;
+	lex->_peeked = NULL;
+}
+
 Token lexer_next(Lexer* lex) {
+  if (lex->_peeked) {
+		Token tok = *lex->_peeked;
+		free(lex->_peeked);
+		lex->_peeked = NULL;
+		return tok;
+	}
 	return _lexer_internal_next(lex);
 }
 
-bool lexer_expect(Lexer* lex, TokenType type, Token* tok) {
-	Token next = lexer_next(lex);
-	if (next.type == type) {
-		*tok = next;
-		return true;
+Token lexer_peek(Lexer* lex) {
+	if (lex->_peeked) {
+		return *lex->_peeked;
 	}
-	tok = NULL;
-	return false;
+	lex->_peeked = malloc(sizeof(Token));
+	*(lex->_peeked) = _lexer_internal_next(lex);
+	return *lex->_peeked;
 }
+
+bool lexer_expect(Lexer* lex, TokenType type, Token* tok) {
+  Token next = lexer_next(lex);
+	if (tok) {
+		*tok = next;
+	}
+	return next.type == type;
+}
+
