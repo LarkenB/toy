@@ -8,7 +8,11 @@ typedef struct {
 
 ProgramAst parser_parse_program(Parser* par);
 
-FunctionAst parser_parse_function(Parser* par);
+FuncAst parser_parse_function(Parser* par);
+
+ParamListAst* parser_parse_param_list(Parser* par);
+
+ParamAst* parser_parse_param(Parser* par);
 
 ExprAst parser_parse_expr(Parser* par);
 

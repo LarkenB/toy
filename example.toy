@@ -1,5 +1,5 @@
 func main() {
 }
 
-func foo() -> i32 {
+func foo(bar: i32) -> i32 {
 }

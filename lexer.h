@@ -14,7 +14,9 @@ typedef enum {
 	RBrace,
 	Semi,
 	Arrow,
-	Minus
+	Minus,
+	Colon,
+	Comma
 } TokenType;
 
 typedef struct {

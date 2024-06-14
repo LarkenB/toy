@@ -112,6 +112,10 @@ start:
 			Token tok = { .type = Semi, .lexeme = ";" };
 			return tok;
 		}
+		case ':': {
+			Token tok = { .type = Colon, .lexeme = ":" };
+			return tok;
+		}
 	}
 	
 	switch (c) {
@@ -126,9 +130,8 @@ start:
 		}
 	}
 
-	// TODO: proper error handling or convert to assert
-	Token tok = { .type = Error, .lexeme = "error: invalid char in lexer" };
-	return tok;
+	printf("error: invalid char in lexer \"%c\"\n", c);
+	exit(1);
 }
 
 void lexer_init(Lexer* lex, Reader* reader) {

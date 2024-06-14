@@ -6,8 +6,19 @@ typedef struct {
 
 
 typedef struct {
-	Token name;
-} FunctionAst;
+	Token paramName;
+	Token typeName;
+} ParamAst;
+
+typedef struct ParamListAst {
+	ParamAst* param;
+	struct ParamListAst* next;
+} ParamListAst;
+
+typedef struct {
+	Token funcName;
+	ParamListAst* params;
+} FuncAst;
 
 typedef struct {
 } ExprAst;
